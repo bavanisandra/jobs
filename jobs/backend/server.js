@@ -12,7 +12,12 @@ const db = require("./db");
 const app = express();
 
 app.use(cors({
-    origin: "http://localhost:5173"
+    origin: [
+        "http://localhost:5173",
+        "https://jobs-dzrn-msujw2d6f-job-internships-portal.vercel.app"
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+    allowedHeaders: ["Content-Type", "Authorization"]
 }));
 
 app.use(express.json());
