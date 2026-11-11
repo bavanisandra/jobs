@@ -12,10 +12,20 @@ const db = require("./db");
 const app = express();
 
 app.use(cors({
-    origin: [
-        "http://localhost:5173",
-        "https://jobs-dzrn-msujw2d6f-job-internships-portal.vercel.app"
-    ],
+    origin: (origin, callback) => {
+        if (
+            !origin ||
+            origin === "http://localhost:5173" ||
+            (
+                origin.startsWith("https://") &&
+                origin.endsWith(".vercel.app")
+            )
+        ) {
+            callback(null, true);
+        } else {
+            callback(new Error("Not allowed by CORS"));
+        }
+    },
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"]
 }));
