@@ -62,6 +62,7 @@ function App() {
     const response = await fetch(`${API}${url}`, {
       ...options,
       headers
+      mode: "cors"
     });
 
     const data = await response.json().catch(() => ({}));
